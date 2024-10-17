@@ -7,9 +7,6 @@ terraform {
   }
 }
 
-provider "rt" {
-}
-
 # Your registry namespace. This becomes part of the module path
 resource "rt_namespace" "this" {
   name        = var.namespace
