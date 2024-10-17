@@ -6,8 +6,8 @@ Creates a Terraform private registry and connects your GitHub modules to it usin
 
 ```hcl
 module "private-registry-example" {
-  source  = "registry-tools/private-registry"
-  version = "0.1.0"
+  source  = "registry-tools/private-registry/rt"
+  version = "0.1.0-alpha"
 
   # New Registry Tools Namespace name. This name appears
   # in module paths in your private registry.
