@@ -2,5 +2,5 @@
 namespace          = "example"
 vcs_tag_publishers = [
   { provider = "github", repo_identifier = "your-org/terraform-aws-example-module" },
-  { provider = "github", repo_identifier = "your-org/terraform-aws-another-example-module", preload_pattern = "^v" },
+  { provider = "github", repo_identifier = "your-org/terraform-aws-another-example-module", backfill_pattern = "^v" },
 ]

@@ -5,7 +5,7 @@ variable "namespace" {
 
 variable "vcs_tag_publishers" {
   description = "GitHub repositories containing modules that you want to release automatically when a version tag is pushed."
-  type        = set(object({ repo_identifier = string, provider = string, preload_pattern = optional(string) }))
+  type        = set(object({ repo_identifier = string, provider = string, backfill_pattern = optional(string) }))
   default     = []
 }
 

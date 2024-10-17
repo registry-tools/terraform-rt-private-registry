@@ -17,7 +17,7 @@ module "private-registry-example" {
   # to release automatically (Only GitHub is supported right now)
   vcs_tag_publishers = [
     { provider = "github", repo_identifier = "your-org/terraform-aws-example-module" },
-    { provider = "github", repo_identifier = "your-org/terraform-aws-another-example-module", preload_pattern = "^v" },
+    { provider = "github", repo_identifier = "your-org/terraform-aws-another-example-module", backfill_pattern = "^v" },
   ]
   github_token = var.github_token
 }

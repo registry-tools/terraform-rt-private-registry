@@ -2,7 +2,7 @@ terraform {
   required_providers {
     rt = {
       source  = "registry-tools/rt"
-      version = "0.1.0"
+      version = "0.1.0-dev1"
     }
   }
 }
@@ -39,7 +39,7 @@ resource "rt_tag_publisher" "tag_publishers" {
   vcs_connector_id = each.value.provider == "github" ? rt_vcs_connector.github[0].id : null
   namespace_id     = rt_namespace.this.id
   repo_identifier  = each.key
-  preload_pattern  = lookup(each.value, "preload_pattern", null)
+  backfill_pattern  = lookup(each.value, "backfill_pattern", null)
 }
 
 output "terraform_token" {
