@@ -15,10 +15,10 @@ module "private-registry-example" {
   
   # Map of VCS repositories to VCS provider containing modules that you want
   # to release automatically (Only GitHub is supported right now)
-  vcs_tag_publishers = {
-    "my-organization/terraform-aws-my-module1" = "github",
-    "my-organization/terraform-aws-my-module2" = "github",
-  }
+  vcs_tag_publishers = [
+    { provider = "github", repo_identifier = "your-org/terraform-aws-example-module" },
+    { provider = "github", repo_identifier = "your-org/terraform-aws-another-example-module", preload_pattern = "^v" },
+  ]
   github_token = var.github_token
 }
 
@@ -33,7 +33,7 @@ variable "github_token" {
 | Name                    | Description                                                                                           | Type           | Default | Required |
 |-------------------------|-------------------------------------------------------------------------------------------------------|----------------|---------|----------|
 | `namespace`             | This name appears in module paths in your private registry.                                           | `string`       |         | yes      |
-| `github_tag_publishers` | GitHub repositories containing modules that you want to release automatically                         | `list(string)` | `[]`    | no       |
+| `github_tag_publishers` | GitHub repositories containing modules that you want to release automatically                         | `set(object)` | `[]`    | no       |
 | `github_token`          | A GitHub Personal Access Token or OAuth2 token that can manage webhooks on the specified repositories | `string`       | `""`    | no       |
 
 ## Outputs
@@ -56,7 +56,7 @@ $ export TF_TOKEN_registrytools_cloud=$(terraform output -raw terraform_token)
 
 ```hcl
 module "my-module1" {
-  source  = "registrytools.cloud/my-namespace/my-module1/aws"
+  source  = "registrytools.cloud/my-namespace/example-module/aws"
   version = "1.0.0"
 }
 ```

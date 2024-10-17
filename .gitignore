@@ -1,3 +1,4 @@
 .envrc
 *.tfrc
 *.tfstate*
+.terraform

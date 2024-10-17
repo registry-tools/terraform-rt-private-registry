@@ -2,7 +2,7 @@ terraform {
   required_providers {
     rt = {
       source  = "registry-tools/rt"
-      version = "1.0.0"
+      version = "0.1.0"
     }
   }
 }
@@ -27,18 +27,19 @@ resource "rt_terraform_token" "provisioner" {
 # A connection to a VCS provider that can be used to automate
 # module publishing
 resource "rt_vcs_connector" "github" {
-  count = contains(values(var.vcs_tag_publishers), "github") ? 1 : 0
+  count = contains([for item in var.vcs_tag_publishers : item.provider], "github") ? 1 : 0
   github = {
     token = var.github_token
   }
 }
 
 resource "rt_tag_publisher" "tag_publishers" {
-  for_each = var.vcs_tag_publishers
+  for_each = { for item in var.vcs_tag_publishers : item.repo_identifier => item }
 
-  vcs_connector_id = each.value == "github" ? rt_vcs_connector.github[0].id : null
+  vcs_connector_id = each.value.provider == "github" ? rt_vcs_connector.github[0].id : null
   namespace_id     = rt_namespace.this.id
   repo_identifier  = each.key
+  preload_pattern  = lookup(each.value, "preload_pattern", null)
 }
 
 output "terraform_token" {
