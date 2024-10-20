@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '^v.+'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Publish to registry.tools
+        uses: registry-tools/publish-action@main
+        env:
+          REGISTRY_TOOLS_CLIENT_ID: ${{ secrets.REGISTRY_TOOLS_CLIENT_ID }}
+          REGISTRY_TOOLS_CLIENT_SECRET: ${{ secrets.REGISTRY_TOOLS_CLIENT_SECRET }}
+        with:
+          namespace: example
+          version: ${{ github.ref }}
+          directory: .
