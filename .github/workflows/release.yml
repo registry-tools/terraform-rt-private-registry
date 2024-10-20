@@ -20,5 +20,5 @@ jobs:
           REGISTRY_TOOLS_TOKEN: ${{ secrets.REGISTRY_TOOLS_TOKEN }}
         with:
           namespace: example
-          version: ${{ github.ref }}
+          version: ${{ github.ref_name }}
           directory: .
