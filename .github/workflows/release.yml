@@ -17,8 +17,7 @@ jobs:
       - name: Publish to registry.tools
         uses: registry-tools/publish-action@main
         env:
-          REGISTRY_TOOLS_CLIENT_ID: ${{ secrets.REGISTRY_TOOLS_CLIENT_ID }}
-          REGISTRY_TOOLS_CLIENT_SECRET: ${{ secrets.REGISTRY_TOOLS_CLIENT_SECRET }}
+          REGISTRY_TOOLS_TOKEN: ${{ secrets.REGISTRY_TOOLS_TOKEN }}
         with:
           namespace: example
           version: ${{ github.ref }}
