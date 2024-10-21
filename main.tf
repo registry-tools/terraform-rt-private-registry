@@ -21,6 +21,14 @@ resource "rt_terraform_token" "provisioner" {
   expires_in   = "never"
 }
 
+# A token that can be used to provision modules
+# from the namespace
+resource "rt_terraform_token" "publisher" {
+  namespace_id = rt_namespace.this.id
+  role         = "publisher"
+  expires_in   = "never"
+}
+
 # A connection to a VCS provider that can be used to automate
 # module publishing
 resource "rt_vcs_connector" "github" {
@@ -39,7 +47,12 @@ resource "rt_tag_publisher" "tag_publishers" {
   backfill_pattern  = lookup(each.value, "backfill_pattern", null)
 }
 
-output "terraform_token" {
+output "terraform_token_provisioner" {
   value     = rt_terraform_token.provisioner.token
+  sensitive = true
+}
+
+output "terraform_token_publisher" {
+  value     = rt_terraform_token.publisher.token
   sensitive = true
 }
